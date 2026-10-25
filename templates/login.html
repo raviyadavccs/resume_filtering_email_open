@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="login-card">
+  <div class="eyebrow">HR PORTAL</div>
+  <h1>Welcome back</h1>
+  <p class="muted">Log in to access your resume-filtering dashboard.</p>
+  <form method="POST" class="form-stack">
+    <label for="email">Email</label>
+    <input id="email" type="email" name="email" autocomplete="email" required placeholder="Enter registered email">
+    <label for="password">Password</label>
+    <input id="password" type="password" name="password" autocomplete="current-password" required placeholder="Enter password">
+    <button type="submit" class="primary">Log in</button>
+  </form>
+  <p class="bottom-note">New to ResumeFilter? <a href="{{ url_for('signup') }}">Create an account</a></p>
+</section>
+{% endblock %}

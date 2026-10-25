@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="results-heading">
+  <div>
+    <div class="eyebrow">NLP SKILL SCREENING</div>
+    <h1>Resume results</h1>
+    <p class="muted">Required skills: {{ required_skills|join(", ") }}</p>
+  </div>
+  <a class="secondary" href="{{ url_for('home') }}">← New search</a>
+</div>
+{% if not results %}
+<section class="panel"><p>No supported resume files were processed. Upload PDF, DOCX, or TXT files.</p></section>
+{% else %}
+<section class="panel">
+{% for item in results %}
+<article class="result-card">
+  <div class="result-top">
+    <div class="file-symbol">CV</div>
+    <div class="result-name">
+      <h3>{{ item.filename }}</h3>
+      {% if item.email %}
+        <div class="candidate-email">Email: <a href="mailto:{{ item.email }}">{{ item.email }}</a></div>
+      {% else %}
+        <div class="candidate-email email-missing">Email not found</div>
+      {% endif %}
+      {% if not item.text_found %}<span class="warning">Could not extract readable text.</span>{% endif %}
+    </div>
+    <div class="score"><strong>{{ item.score }}%</strong><span>skills matched</span></div>
+  </div>
+  <div class="result-actions">
+    <a class="secondary open-resume" href="{{ url_for('open_resume', token=item.file_token) }}" target="_blank" rel="noopener">Open Resume ↗</a>
+  </div>
+  <div class="progress"><div style="width: {{ item.score }}%"></div></div>
+  <div class="matches">
+    <strong>Matched skills</strong>
+    {% if item.matched %}<div class="tags">{% for skill in item.matched %}<span>{{ skill }}</span>{% endfor %}</div>
+    {% else %}<p class="muted small">No required skills found.</p>{% endif %}
+  </div>
+  <div class="matches" style="margin-top:12px">
+    <strong>Missing skills</strong>
+    {% if item.missing %}<div class="tags">{% for skill in item.missing %}<span>{{ skill }}</span>{% endfor %}</div>
+    {% else %}<p class="muted small">All detected required skills were found.</p>{% endif %}
+  </div>
+</article>
+{% endfor %}
+</section>
+{% endif %}
+{% endblock %}

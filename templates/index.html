@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="eyebrow">HR DASHBOARD</div>
+  <h1>Welcome, <span>{{ user_name }}</span></h1>
+  <p class="muted">Enter the required skills, upload resumes, and compare relevant skills using NLP.</p>
+</section>
+<section class="panel">
+  <form action="{{ url_for('filter_resumes') }}" method="POST" enctype="multipart/form-data" id="filterForm">
+    <label for="job_description">Job description / required skills</label>
+    <textarea id="job_description" name="job_description" rows="5" required placeholder="Example: Candidate must know ML, Python and SQL."></textarea>
+    <div class="hint">Supported aliases include ML = Machine Learning, NLP = Natural Language Processing, and AI = Artificial Intelligence.</div>
+    <label for="resumes" class="upload-label">Resume files</label>
+    <div class="upload-box">
+      <div class="upload-icon">↑</div><strong>Choose resume files</strong>
+      <p class="muted">PDF, DOCX, or TXT · keep the total upload under 4 MB</p>
+      <input type="file" id="resumes" name="resumes" accept=".pdf,.docx,.txt" multiple required>
+      <div id="fileNames" class="file-names">No files selected</div>
+    </div>
+    <button type="submit" class="primary wide" id="submitBtn">Filter resumes</button>
+  </form>
+</section>
+{% endblock %}

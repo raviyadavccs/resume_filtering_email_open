@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="login-card">
+  <div class="eyebrow">HR ACCOUNT</div>
+  <h1>Create your account</h1>
+  <p class="muted">Register before accessing the resume-filtering dashboard.</p>
+  <form method="POST" class="form-stack">
+    <label for="name">Full name</label>
+    <input id="name" name="name" autocomplete="name" required maxlength="120" placeholder="Enter your name">
+    <label for="email">Work email</label>
+    <input id="email" type="email" name="email" autocomplete="email" required placeholder="you@company.com">
+    <label for="password">Password</label>
+    <input id="password" type="password" name="password" autocomplete="new-password" minlength="8" required placeholder="At least 8 characters">
+    <button type="submit" class="primary">Create account</button>
+  </form>
+  <p class="bottom-note">Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+</section>
+{% endblock %}
